@@ -1,0 +1,11 @@
+<app-tabla
+[titulo]="titulo"
+[columnas]="columnas"
+[data]="listaTareas"
+[mostrarColAcciones] = false
+[mostratBotonCrearT]="true"
+(onInformacion)="modalNuevaTarea()"
+></app-tabla>
+<button (click)="modalNuevaTarea()">Crear Tarea</button>
+
+

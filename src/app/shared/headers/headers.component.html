@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="./assets/logo/logo.jpg" width="70px" alt="Logo" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        @for (menu of menuItems; track $index){
+        <li class="nav-item" [class]="menu.classCss">
+          <i [class]="menu.icon"></i>
+          <a class="nav-link" [routerLink]="menu.path"> {{ menu.tittle }}</a>
+        </li>
+        @if(menu.subMenu.length > 0 ){
+        <!-- Este es el submenu -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+          </a>
+          <ul class="dropdown-menu">
+            @for(subMenu of menu.subMenu; track $index){
+            <li class="dropdown-item" [class]="subMenu.classCss">
+              <i [class]="subMenu.icon"></i>
+              <a [routerLink]="subMenu.path"> {{ subMenu.tittle }}</a>
+            </li>
+            }
+          </ul>
+        </li>
+        } }
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Esta es la forma principiante de hacer el menu -->
+<!-- <li class="nav-item active">
+      <a class="nav-link" routerLink="inicio">Inicio </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/imagenes">Imagenes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/lista">Lista</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/acerca-de">Acerca de</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="contacto">Contacto</a>
+    </li> -->

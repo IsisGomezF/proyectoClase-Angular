@@ -1,0 +1,71 @@
+<h1 class="text-center">{{ titulo }}</h1>
+
+@if (mostratBotonCrearT) {
+  <br>
+  <div class="d-grid gap-2 col-2 mx-auto">
+    <button type="button" class="btn btn-primary" (click)="funcionalidadBoton($event)">Crear tarea</button>
+  </div>
+}
+<hr>
+<table class="table table-striped" >
+  <thead>
+    <tr>
+      @for(columna of columnas; track $index){
+      <ng-container>
+        <th>{{ formatearNombreDeColumnas(columna) }}</th>
+      </ng-container>
+      }
+      @if(mostrarColAcciones){
+        <th>Acciones</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for(item of data; track $index){
+    <tr>
+      @for (columna of columnas; track $index) {@if (isFecha(item[columna])) {
+      <ng-container>
+        <td>{{ item[columna] | date : "mediumDate" : "UTC" }}</td>
+      </ng-container>
+      } @else{
+        <ng-container>
+          <td>{{ item[columna] }}</td>
+        </ng-container>
+      }}
+      @if(mostrarColAcciones){
+        <td class="text-center">
+          <button type="button" class="btn btn-info" (click)="enviarInformacion(item)">Info</button>
+        </td>
+      }
+    </tr>
+    }
+  </tbody>
+</table>
+
+<!-- <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Fecha de Nacimiento</th>
+      <th scope="col">Tipo Documento</th>
+      <th scope="col">No Documento</th>
+      <th scope="col">Celular</th>
+      <th scope="col">Email</th>
+      <th scope="col">Peso</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(persona of personas; track $index){
+      <tr>
+        <th scope="row">1</th>
+        <td>{{persona.nombre}}</td>
+        <td>{{persona.fechaNacimiento | date : "mediumDate":"UTC" }}</td>
+        <td>{{persona.tipoDocumento}}</td>
+        <td>{{persona.numeroDocumento}}</td>
+        <td>{{persona.numeroCelular}}</td>
+        <td>{{persona.email}}</td>
+        <td>{{persona.peso}}</td>
+      </tr>
+    }
+  </tbody>
+</table> -->
