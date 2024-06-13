@@ -7,5 +7,7 @@ export enum PATH{
   ACERCADE="acerca-de",
   USUARIO = "usuario",
   PRODUCTOS = "productos",
-  LISTATAREAS = "lista-tareas"
+  LISTATAREAS = "lista-tareas",
+  CREARPRODUCTOS = "crear.productos",
+  LOGIN="login"
 }

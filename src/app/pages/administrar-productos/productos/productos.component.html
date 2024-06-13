@@ -1,0 +1,10 @@
+
+<!-- <span style="color:blueviolet; font-size: 20px;"> SKU {{informacion?.sku}} </span> -->
+<button class="btn btn-primary" (click)="crearProductos()">Crear producto</button>
+
+<app-tabla
+ [columnas]="columnas"
+ [data]="misProductos"
+ [titulo]="titulo"
+ (onInformacion)="recibirInformacion($event)">
+</app-tabla>

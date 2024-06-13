@@ -1,7 +1,9 @@
+import { UsuariosService } from './../../services/usuarios/usuarios.service';
 import { TablaComponent } from './../../components/tabla/tabla.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 import { PersonaInterface } from '../../core/interface/persona.interface';
 import Swal from 'sweetalert2';
+import { UsuarioModel } from '../../core/models/usuario.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -10,59 +12,31 @@ import Swal from 'sweetalert2';
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css',
 })
-export class UsuariosComponent implements OnInit {
-  usuarios: PersonaInterface[] = [];
+export class UsuariosComponent implements OnInit{
+  usuarios: UsuarioModel[] = [];
   columnas: string[] = [];
-  informacionUsuarios: any;
+  informacionUsuarios: UsuarioModel;
+  usuariosService = inject(UsuariosService);
 
   ngOnInit(): void {
-    this.usuarios = [
-      {
-        nombre: 'Juan Perez',
-        fechaNacimiento: new Date('2023-04-05'),
-        tipoDocumento: 'Cedula ciudania',
-        numeroDocumento: '123456',
-        numeroCelular: 123456,
-        email: 'correo@gmail.com',
-        peso: '70kg',
-      },
-      {
-        nombre: 'Maria Gomez',
-        fechaNacimiento: new Date('2023-05-05'),
-        tipoDocumento: 'Cedula ciudania',
-        numeroDocumento: '456789',
-        numeroCelular: 4567,
-        email: 'correo@gmail.com',
-      },
-      {
-        nombre: 'Juanito Perez',
-        fechaNacimiento: new Date('2023-06-05'),
-        tipoDocumento: 'Cedula ciudania',
-        numeroDocumento: '7894',
-        numeroCelular: 7894,
-        email: 'correo@gmail.com',
-        peso: '70kg',
-      },
-      {
-        nombre: 'Diana Diaz',
-        fechaNacimiento: new Date('2023-07-05'),
-        tipoDocumento: 'Cedula ciudania',
-        numeroDocumento: '564123',
-        numeroCelular: 56123,
-        email: 'correo@gmail.com',
-        peso: '70kg',
-      },
-    ];
-    this.obtenerColumnas(this.usuarios);
-    console.log(this.usuarios);
+    this.usuariosService.getUsuarios().subscribe((resp:any)=>{
+      this.usuarios = resp.verUsuarios;
+      this.obtenerColumnas(this.usuarios);
+
+      // console.log("usuarios de la api2",resp);
+      // console.log("usuarios de la api",this.usuarios);
+    });
+
+    // console.log("obtener columnas", this.usuarios);
   }
-  obtenerColumnas(usuarios: PersonaInterface[]) {
+
+  obtenerColumnas(usuarios: UsuarioModel[]) {
     if (usuarios.length > 0) {
       this.columnas = Object.keys(usuarios[0]);
-      console.log(this.columnas);
+      // console.log(this.columnas);
     }
   }
-  recibirInformacion(data: PersonaInterface) {
+  recibirInformacion(data: UsuarioModel) {
     this.informacionUsuarios = data;
     Swal.fire({
       title: `Usuario ${data.nombre}`,
@@ -75,6 +49,6 @@ export class UsuariosComponent implements OnInit {
       Peso: ${data.peso} <br>
       `,
     });
-    console.log('Componente padre info usuarios', this.informacionUsuarios);
+    // console.log('Componente padre info usuarios', this.informacionUsuarios);
   }
 }

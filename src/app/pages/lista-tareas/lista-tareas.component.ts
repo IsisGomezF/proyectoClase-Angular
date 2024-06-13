@@ -32,7 +32,7 @@ export class ListaTareasComponent implements OnInit {
         plazo: undefined
       }
     ];
-    console.log('Lista tareas',this.listaTareas);
+    // console.log('Lista tareas',this.listaTareas);
   }
   async modalNuevaTarea(){
     const { value: formValues } = await Swal.fire({
@@ -67,7 +67,7 @@ export class ListaTareasComponent implements OnInit {
         tarea: formValues[1],
         plazo: formValues[2]
       }
-      console.log(this.listaTareas);
+      // console.log(this.listaTareas);
       this.listaTareas.push(nuevaTarea)
       Swal.fire(JSON.stringify(formValues));
       // console.log(JSON.stringify(formValues));

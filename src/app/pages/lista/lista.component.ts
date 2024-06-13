@@ -61,6 +61,6 @@ export class ListaComponent implements OnInit {
       },
     ];
 
-    console.log(this.personas);
+    // console.log("personas",this.personas);
   }
 }
