@@ -35,6 +35,8 @@
       @if(mostrarColAcciones){
         <td class="text-center">
           <button type="button" class="btn btn-info" (click)="enviarInformacion(item)">Info</button>
+          <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+          <button type="button" class="btn btn-primary" (click)="editar(item.numeroDocumento)">Editar</button>
         </td>
       }
     </tr>

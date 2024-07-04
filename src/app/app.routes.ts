@@ -6,10 +6,14 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
 import { AcercaDeComponent } from './pages/acerca-de/acerca-de.component';
 import { ImagenesComponent } from './pages/imagenes/imagenes.component';
 import { PATH } from './core/enum/path.enum';
-import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { UsuariosComponent } from './pages/administrar-usuarios/usuarios/usuarios.component';
 import { ListaTareasComponent } from './pages/lista-tareas/lista-tareas.component';
 import { CrearProductosComponent } from './pages/administrar-productos/crear-productos/crear-productos.component';
 import { LoginComponent } from './auth/login/login.component';
+import { authGuard } from './core/guards/auth.guard';
+import {productosResolver} from './core/resolvers/productos/productos-resolvers.resolver';
+import { usuariosResolver } from './core/resolvers/usuarios/usuarios-resolvers.resolver';
+import { CrearUsuariosComponent } from './pages/administrar-usuarios/crear-usuarios/crear-usuarios.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +23,7 @@ export const routes: Routes = [
   {
   path: PATH.HOME,
   title:'Home',
+  canActivate: [authGuard],
   children:[
     {
       path:PATH.INICIO,
@@ -48,16 +53,27 @@ export const routes: Routes = [
     {
       path: PATH.USUARIO,
       title:'Usuarios',
-      component: UsuariosComponent
+      component: UsuariosComponent,
+      resolve: {
+        usuarios: usuariosResolver,
+      }
+    },
+    {
+      path: PATH.CREARUSUARIOS,
+      title:'Crear Usuarios',
+      component: CrearUsuariosComponent,
     },
     {
       path: PATH.PRODUCTOS,
       title:'Productos',
-      component: ProductosComponent
+      component: ProductosComponent,
+      resolve: {
+        productos: productosResolver,
+      }
     },
     {
       path: PATH.CREARPRODUCTOS,
-      title:'Productos',
+      title:'Crear Productos',
       component: CrearProductosComponent
     },
     {

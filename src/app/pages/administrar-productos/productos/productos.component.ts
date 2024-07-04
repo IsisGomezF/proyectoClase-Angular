@@ -4,8 +4,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ProductosInterface } from '../../../core/interface/productos.interface';
 import { TablaComponent } from '../../../components/tabla/tabla.component';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PATH } from '../../../core/enum/path.enum';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-productos',
@@ -17,27 +18,38 @@ import { PATH } from '../../../core/enum/path.enum';
 export class ProductosComponent implements OnInit {
   misProductos: ProductosInterface[] = [];
   productos: ProductoModel[]=[]
+
+  productosResolver: Observable<ProductoModel>;
+
   titulo: string = 'Lista de productos';
   columnas: string[] = ['nombre', 'sku', 'cantidad', 'precio'];
   informacion: ProductoModel | undefined;
-  productosService = inject(ProductosService);
   dataProductos: ProductosInterface[]=[]
   private router =inject(Router)
+  private activatedRoute = inject(ActivatedRoute)
+  private productosService =inject(ProductosService)
 
   ngOnInit(): void {
-    this.productosService
-    .getProductos()
-    .subscribe((verProductos:ProductoModel[]) =>{
-      this.productos = verProductos
-      this.misProductos = verProductos.map((producto)=>
-        this.resumenDeProductos(producto)
-      );
+  this.cargarProductos()
+    // this.productosService
+    // .getProductos()
+    // .subscribe((verProductos:ProductoModel[]) =>{
+    //   this.productos = verProductos
+    //   this.misProductos = verProductos.map((producto)=>
+    //     this.resumenDeProductos(producto)
+    //   );
+    //   this.obtenerColumnas(this.misProductos);
+    //   console.log("mis productos, interface", this.misProductos);
+    //   console.log("productos, model", this.productos);
+    // },
+    // );
+  }
 
-      this.obtenerColumnas(this.misProductos);
-      console.log("mis productos, interface", this.misProductos);
-      console.log("productos, model", this.productos);
-    },
-    );
+  cargarProductos(){
+    this.activatedRoute.data.subscribe(({productos})=>{
+      this.misProductos=productos
+    })
+    this.obtenerColumnas(this.misProductos);
   }
 
   resumenDeProductos(producto: ProductoModel): ProductosInterface{
@@ -80,6 +92,13 @@ export class ProductosComponent implements OnInit {
   }
   crearProductos(){
     this.router.navigateByUrl(`${PATH.CREARPRODUCTOS}`)
+  }
+  eliminar(data:ProductoModel){
+    this.productosService.eliminarProducto(data._id).subscribe((resp: any) => {
+      Swal.fire("Producto eliminado", `${resp.msg}`, 'success');
+      this.cargarProductos()
+      // console.log('resp', resp);
+    });
   }
 }
 

@@ -5,6 +5,8 @@ export class UsuarioModel {
     public email:string,
     public tipoDocumento:string,
     public numeroDocumento:string,
+    public rol: string,
+    public createdAt?: Date,
     public numeroCelular?:number,
     public peso?:string,
     public fechaNacimiento?: Date,

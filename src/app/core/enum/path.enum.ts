@@ -8,6 +8,7 @@ export enum PATH{
   USUARIO = "usuario",
   PRODUCTOS = "productos",
   LISTATAREAS = "lista-tareas",
-  CREARPRODUCTOS = "crear.productos",
+  CREARPRODUCTOS = "crear-productos",
+  CREARUSUARIOS = "crear-usuarios",
   LOGIN="login"
 }

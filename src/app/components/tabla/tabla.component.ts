@@ -20,7 +20,8 @@ export class TablaComponent implements OnInit, OnChanges {
   @Input() mostrarColAcciones: boolean = true
 
   @Output() onInformacion:EventEmitter <any> = new EventEmitter();
-
+  @Output() onEliminar:EventEmitter <any> = new EventEmitter();
+  @Output() onEditar:EventEmitter <any> = new EventEmitter();
 
   ngOnInit(): void {
     // this.columnas.push('acciones'); Lo voy a poner diractemente en html para poder alinear con el boton
@@ -52,4 +53,11 @@ export class TablaComponent implements OnInit, OnChanges {
     // console.log("el boton funciona");
     this.onInformacion.emit()
   }
+  eliminar(data:any){
+    this.onEliminar.emit(data)
+  }
+  editar(data:any){
+    this.onEditar.emit(data)
+  }
+
 }
